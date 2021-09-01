@@ -4,21 +4,22 @@ from PyPDF2 import PdfFileReader
 SCHEDULE_PATH = './schedule_files/m1db_sarjaohjelma_21-22.pdf'
 
 class Game:
-    def __init__(self, round, day, date, time, home, away, place, additional):
+    def __init__(self, round, weekday, date, time, home, away, place, additional):
         self.round = round
-        self.day = day
+        self.weekday = weekday
         self.date = date
         self.time = time
         self.home = home
         self.away = away
         self.place = place
+        self.additional = ''
         if additional != None:
             self.additional = additional
-
 
 def get_basket_schedule(team, schedule_path):
     """
     Get the schedule of the wanted team from a pdf file given.
+    Designed to be used with files in a same format as "m1db_sarjaohjelma_21-22.pdf".
 
     Returns
     -------
@@ -45,17 +46,16 @@ def get_basket_schedule(team, schedule_path):
                 
                 home = cells[3].replace('•', 'Ä').replace('ı', 'ö').replace('−', 'ä')
                 away = cells[4][1:].replace('•', 'Ä').replace('ı', 'ö').replace('−', 'ä')
+                place = cells[5].replace('•', 'Ä').replace('ı', 'ö').replace('−', 'ä')
                 if team == home or team == away:
                     # Additional info on the game
                     additional = None
                     try:
-                        additional = cells[7]
+                        additional = cells[7].replace('•', 'Ä').replace('ı', 'ö').replace('−', 'ä')
                     except IndexError:
                         pass
                     
-                    game = Game(cells[0], cells[1][:2], cells[1][2:], cells[2], home, away, cells[5], additional)
+                    game = Game(cells[0], cells[1][:2], cells[1][2:], cells[2], home, away, place, additional)
                     schedule_dict[cells[0]] = game
 
     return schedule_dict
-
-schedule = get_basket_schedule('Raholan Pyrkivä', SCHEDULE_PATH)
