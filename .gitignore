@@ -1,2 +1,6 @@
 .env
 .vscode
+
+# Google calendar API credentials:
+token.json
+credentials.json
