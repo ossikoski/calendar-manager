@@ -1,0 +1,4 @@
+- Enable the [Google calendar API for your google account](https://console.cloud.google.com/apis/api/calendar-json.googleapis.com/])
+- Click "API Console"
+- Go to "Credentials"
+- Click the download button under OAuth2.0 client IDs, and save the file as "credentials.json" in this project repository.
