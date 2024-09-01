@@ -23,7 +23,7 @@ def get_basket_schedule(team, schedule_path):
             # Regular season:
             text = text.split('\nKierros ')
             for i, row in enumerate(text):
-                if 'MIESTEN I DIVISIOONA B' in row:  # Header row
+                if 'MIESTEN I DIVISIOONA A' in row:  # Header row
                     continue
                 
                 if '1. putoamisve' in row:  # Last row

@@ -9,13 +9,14 @@ from google.oauth2.credentials import Credentials
 
 from get_basket_schedule_from_pdf import get_basket_schedule
 
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar'] #.readonly
 
 
 def main():
     """
-    Add events in m1db_sarjaohjelma_22-23.pdf to calendar
+    Add events in m1da_sarjaohjelma_24-25.pdf to calendar
     """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -38,7 +39,7 @@ def main():
     service = build('calendar', 'v3', credentials=creds)
 
     # Get schedule from men's 1. division B games by Raholan Pyrkivä:
-    schedule_dict = get_basket_schedule('Raholan Pyrkivä', './schedule_files/m1db_sarjaohjelma_22-23.pdf')
+    schedule_dict = get_basket_schedule('Raholan Pyrkivä', './schedule_files/m1da_sarjaohjelma_24-25.pdf')
     # Parse results and add events for each game:
     for round, game in schedule_dict.items():
         if game.home == 'Raholan Pyrkivä':
@@ -47,9 +48,9 @@ def main():
             summary = f'@ {game.home}'
 
         month = game.date.split('.')[1]
-        year = 2022
+        year = 2024
         if literal_eval(month) < 7:
-            year = 2023
+            year = 2025
         if len(month) < 2:
             month = f'0{month}'
         day = game.date.split('.')[0]
@@ -77,6 +78,7 @@ def main():
         # Call the Calendar API
         event = service.events().insert(calendarId='primary', body=event).execute()
         print('Event created: %s' % (event.get('htmlLink')))
+
 
 if __name__ == '__main__':
     main()
