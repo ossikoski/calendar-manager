@@ -16,7 +16,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar'] #.readonly
 
 def main():
     """
-    Add events in m1da_sarjaohjelma_24-25.pdf to calendar
+    Add events in m1da_sarjaohjelma_25-26.pdf to calendar
     """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -39,7 +39,7 @@ def main():
     service = build('calendar', 'v3', credentials=creds)
 
     # Get schedule from men's 1. division B games by Raholan Pyrkivä:
-    schedule_dict = get_basket_schedule('Raholan Pyrkivä', './schedule_files/m1da_sarjaohjelma_24-25.pdf')
+    schedule_dict = get_basket_schedule('Raholan Pyrkivä', './schedule_files/m1da_sarjaohjelma_25-26.pdf')
     # Parse results and add events for each game:
     for round, game in schedule_dict.items():
         if game.home == 'Raholan Pyrkivä':
@@ -48,9 +48,9 @@ def main():
             summary = f'@ {game.home}'
 
         month = game.date.split('.')[1]
-        year = 2024
+        year = 2025
         if literal_eval(month) < 7:
-            year = 2025
+            year = 2026
         if len(month) < 2:
             month = f'0{month}'
         day = game.date.split('.')[0]
